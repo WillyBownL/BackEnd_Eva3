@@ -1,18 +1,19 @@
-from django.shortcuts import render,render
-from appCliente.models import Cliente
-from appConcierto.models import Concierto
+from django.shortcuts import render, redirect
 from appEntrada.models import Entrada
+from appEntrada.forms import FormEntrada  
 
-# Create your views here.
-
-
-def MenuPrincipal(request):
-    return render(request, 'appEntrada/index.html')
-
-def listadoEntrada(request):
+# Vista para listar las entradas
+def lista_entradas(request):
     entradas = Entrada.objects.all()
-    data = {'entradas': entradas}
-    return render(request, 'appEntrada/listadoEntrada.html')
+    return render(request, 'appEntrada/lista.html', {'entradas': entradas})
 
-def detalleEntrada(request, id):
-    return render(request, 'appEntrada/detalleEntrada.html', {'id': id})
+# Vista para agregar una nueva entrada
+def agregar_entrada(request):
+    if request.method == 'POST':
+        form = FormEntrada(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_entradas')
+    else:
+        form = FormEntrada()
+    return render(request, 'appEntrada/agregar.html', {'form': form})
