@@ -2,14 +2,12 @@ from django import forms
 from appCliente.models import cliente  # Importa correctamente el modelo Cliente desde appCliente
 from appConcierto.models import Concierto  # Importa correctamente el modelo Concierto desde appConcierto
 from appEntrada.models import Entrada  # Asumiendo que Entrada es el modelo de la tabla en appEntrada
-from datetime import date, time
-import re #regex
+from datetime import date
+import re  # regex
 
 class FormEntrada(forms.ModelForm):
-    class Meta:
-        model = Entrada
-        fields = ['id_cliente', 'id_concierto', 'precio', 'area_designada', 'fecha_reserva']
-            # Validar el precio
+
+    # Validar el precio
     def clean_precio(self):
         inputprecio = self.cleaned_data['precio']
         # Validar que el campo no esté vacío
@@ -17,7 +15,7 @@ class FormEntrada(forms.ModelForm):
             raise forms.ValidationError("El campo precio no puede estar vacío.")
         # Validar que el precio sea un número positivo
         try:
-            inputprecio = float(inputprecio)  
+            inputprecio = float(inputprecio)
         except ValueError:
             raise forms.ValidationError("El precio debe ser un número válido.")
         # Validar que no sea un número negativo
@@ -27,6 +25,8 @@ class FormEntrada(forms.ModelForm):
         if not str(inputprecio).replace('.', '', 1).isdigit():  # Permite un solo punto decimal
             raise forms.ValidationError("El precio no puede contener caracteres especiales.")
         # Validar que el precio no sea excesivamente alto (esto es solo un ejemplo)
+        if inputprecio < 50000:
+            raise forms.ValidationError("El precio no puede ser menor a 50,000.")
         if inputprecio > 500000:
             raise forms.ValidationError("El precio no puede ser superior a 500,000.")
         return inputprecio
@@ -51,6 +51,7 @@ class FormEntrada(forms.ModelForm):
     # Validar la fecha de reserva
     def clean_fecha_reserva(self):
         inputfecha_reserva = self.cleaned_data['fecha_reserva']
+        
         # Validar que el campo no esté vacío
         if not inputfecha_reserva:
             raise forms.ValidationError("La fecha de reserva no puede estar vacía.")
@@ -61,15 +62,15 @@ class FormEntrada(forms.ModelForm):
         # Validar que la fecha de reserva no esté en el pasado
         if inputfecha_reserva < date.today():
             raise forms.ValidationError("La fecha de reserva no puede estar en el pasado.")
-        # Validar que la fecha de reserva no sea posterior a la fecha del concierto
-        if inputfecha_reserva > self.cleaned_data.get('fecha'):
+        
+        # Obtener la fecha del concierto desde el campo id_concierto
+        concierto = self.cleaned_data.get('id_concierto')
+        if concierto and inputfecha_reserva > concierto.fecha:
             raise forms.ValidationError("La fecha de reserva no puede ser posterior a la fecha del concierto.")
+        
         return inputfecha_reserva
 
     class Meta:
         model = Entrada
-        fields = '__all__'
-
-
-
-   
+        fields = ['id_cliente', 'id_concierto', 'precio', 'area_designada', 'fecha_reserva']
+ 
