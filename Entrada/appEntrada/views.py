@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from appEntrada.models import Entrada
-from appEntrada.forms import FormEntrada  
+from appEntrada.forms import FormEntrada
+
+
+def index(request):
+    return render(request, 'appEntrada/index.html')
 
 # Vista para listar las entradas
 def lista_entradas(request):
@@ -16,4 +20,4 @@ def agregar_entrada(request):
             return redirect('lista_entradas')
     else:
         form = FormEntrada()
-    return render(request, 'appEntrada/agregar.html', {'form': form})
+    return render(request, 'appEntrada/agregarEntrada.html', {'form': form})

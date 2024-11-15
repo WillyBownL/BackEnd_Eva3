@@ -22,7 +22,7 @@ from appConcierto import views as Concierto
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', Entrada.MenuPrincipal),
+    path('', Entrada.index),
 
     # App Cliente
     path('Cliente/' , Cliente.index),

@@ -2,7 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
-class Entrada(models.Model):
+class FormEntrada(models.Model):
     id_cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE, verbose_name="ID del Cliente")
     id_concierto = models.ForeignKey('Concierto', on_delete=models.CASCADE, verbose_name="ID del Concierto")
     precio = models.PositiveIntegerField(verbose_name="Precio")
