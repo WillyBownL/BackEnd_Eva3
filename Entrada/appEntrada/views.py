@@ -21,6 +21,25 @@ def agregar_entrada(request):
             return redirect('listaEntrada')
     else:
         form = FormEntrada()
-    
     data = {'form': form}
     return render(request, 'appEntrada/agregarEntrada.html', data)
+
+# Vista para editar una entrada
+def editarEntrada(request, id):
+    icliente = Entrada.objects.get(id = id)
+    form = FormEntrada (instance=Entrada)
+    if request.method == 'POST':
+        form = FormEntrada(request.POST, instance=Entrada)
+        if form.is_valid():
+            form.save()
+            return index(request)
+    else:
+        form= FormEntrada(instance=Entrada)
+    data = {'form':form}
+    return render(request, 'appCliente/agregar.html', data)
+
+# Vista para eliminar una entrada
+def eliminarEntrada(request, id):
+    ientrada = Entrada.objects.get(id=id)
+    ientrada.delete()
+    return redirect('lista')
