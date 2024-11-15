@@ -55,7 +55,6 @@ class FormConcierto(forms.ModelForm):
         if inputcupo > 5:
             raise forms.ValidationError("El cupo no puede ser mayor a cinco.")
         return inputcupo
-
     
     class Meta:
         model = Concierto
