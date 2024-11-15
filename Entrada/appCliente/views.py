@@ -6,9 +6,6 @@ from appCliente.form import FormCliente
 # Create your views here.
 
 
-def index(request):
-    return render(request, 'appCliente/index.html')
-
 def lista(request):
     i = cliente.objects.all()
     data = {'cliente':i}

@@ -26,7 +26,6 @@ urlpatterns = [
 
     # App Cliente
 
-    path('Cliente/' , Cliente.index),
     path('Cliente/lista/', Cliente.lista, name='lista'),
     path('Cliente/agregar/', Cliente.agregar, name='agregar'),
     path('Cliente/editar/<int:id>/', Cliente.editar, name='editar'),
@@ -34,7 +33,6 @@ urlpatterns = [
 
     # App Concierto
 
-    path('Concierto/', Concierto.index),
     path('Concierto/conciertos/', Concierto.listadoConcierto, name='listadoConcierto'),
     path('Concierto/agregarConcierto/', Concierto.agregarConcierto),
     path('Concierto/actualizarConcierto/<int:id>', Concierto.actualizarConcierto),

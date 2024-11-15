@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect #se impota la redireccion
 from appConcierto.models import Concierto #se importa el modelo
 from appConcierto.forms import FormConcierto #se importa el formulario
 # Create your views here.
-def index(request):  #vista index
-    return render(request, 'appConcierto/index.html')
 
 def listadoConcierto(request):  #vista listado
     conciertos = Concierto.objects.all
@@ -16,7 +14,7 @@ def agregarConcierto(request):
         form = FormConcierto(request.POST)
         if form.is_valid():
             form.save()
-            return index (request)
+            return listadoConcierto (request)
     else:
         form = FormConcierto()
     data = {'form':form}
@@ -29,7 +27,7 @@ def actualizarConcierto(request, id):
         form = FormConcierto(request.POST, instance=concierto)
         if form.is_valid():
             form.save()
-            return index(request)
+            return listadoConcierto(request)
     else:
         form = FormConcierto(instance=concierto)    
     data = {'form':form}
