@@ -10,3 +10,6 @@ class Entrada(models.Model):
     precio = models.IntegerField()
     area_designada = models.CharField(max_length=50)
     fecha_reserva = models.DateField()
+
+
+
