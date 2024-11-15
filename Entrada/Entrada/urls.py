@@ -38,4 +38,8 @@ urlpatterns = [
     path('Concierto/actualizarConcierto/<int:id>', Concierto.actualizarConcierto),
     path('Concierto/eliminarConcierto/<int:id>', Concierto.eliminarConcierto),
 
+    # App Entrada
+    path('Entrada/lista/', Entrada.lista_entradas, name='listaEntrada'),
+    path('Entrada/agregar/', Entrada.agregar_entrada),
+
 ]
