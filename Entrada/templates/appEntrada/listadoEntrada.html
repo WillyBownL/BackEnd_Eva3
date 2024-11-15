@@ -29,8 +29,8 @@
                 <td>{{ entrada.precio }}</td>
                 <td>{{ entrada.area_designada }}</td>
                 <td>{{ entrada.fecha_reserva }}</td>
-                <td><a href="/Entrada/actualizarEntrada/{{entrada.id}}" class="btn btn-success btn-sm"> <i class="bi bi-pencil"></i></a></td>
-                <td><a href="/Entrada/eliminarEntrada/{{entrada.id}}" class="btn btn-danger btn-sm"> <i class="bi bi-trash"></i></a></td>
+                <td><a href="/Entrada/editar/{{entrada.id}}" class="btn btn-success btn-sm"> <i class="bi bi-pencil"></i></a></td>
+                <td><a href="/Entrada/eliminar/{{entrada.id}}" class="btn btn-danger btn-sm"> <i class="bi bi-trash"></i></a></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -44,7 +44,7 @@
 
     {% endif %}
 
-    <a href="/Entrada" class="btn btn-danger">VOLVER</a>
+    <a href="/" class="btn btn-danger">VOLVER</a>
     <a href="/Entrada/agregar" class="btn btn-info float-end">Agregar Entrada</a>
 </body>
 </html>
