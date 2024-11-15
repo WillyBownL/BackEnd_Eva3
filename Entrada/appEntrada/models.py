@@ -10,5 +10,4 @@ class Entrada(models.Model):
     area_designada = models.CharField(max_length=50)
     fecha_reserva = models.DateField()
 
-
-
+    

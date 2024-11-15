@@ -9,7 +9,8 @@ def index(request):
 # Vista para listar las entradas
 def lista_entradas(request):
     entradas = Entrada.objects.all()
-    return render(request, 'appEntrada/lista.html', {'entradas': entradas})
+    data = {'entradas': entradas}
+    return render(request, 'appEntrada/listadoEntrada.html', data)
 
 # Vista para agregar una nueva entrada
 def agregar_entrada(request):
@@ -17,7 +18,9 @@ def agregar_entrada(request):
         form = FormEntrada(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('lista_entradas')
+            return redirect('listaEntrada')
     else:
         form = FormEntrada()
-    return render(request, 'appEntrada/agregarEntrada.html', {'form': form})
+    
+    data = {'form': form}
+    return render(request, 'appEntrada/agregarEntrada.html', data)
